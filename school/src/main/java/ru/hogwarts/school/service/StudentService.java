@@ -15,4 +15,6 @@ public interface StudentService {
     void removeStudent(Long id);
 
     Collection<Student> getStudentByAge(int age);
+
+    Faculty getFaculty(Long id);
 }
