@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.service.StudentService;
 import ru.hogwarts.school.service.impl.StudentServiceImpl;
 
 import java.util.Collection;
@@ -12,9 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("student")
 public class StudentController {
-    private StudentServiceImpl studentService;
+    private StudentService studentService;
 
-    public StudentController(StudentServiceImpl studentService) {
+    public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
@@ -62,8 +63,8 @@ public class StudentController {
     }
 
     @GetMapping("getAge")
-    public ResponseEntity<List<Student>> getStudentByAge(@RequestParam int age) {
-        List<Student> getByAge = studentService.getStudentByAge(age);
+    public ResponseEntity<Collection<Student>> getStudentByAge(@RequestParam int age) {
+        Collection<Student> getByAge = studentService.getStudentByAge(age);
         if (getByAge.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
