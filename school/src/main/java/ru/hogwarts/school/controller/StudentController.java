@@ -90,4 +90,19 @@ public class StudentController {
     public ResponseEntity<List<Student>> getLastFiveStudentsGroupById() {
         return ResponseEntity.ok(studentService.getLastFiveStudentsGroupById());
     }
+
+    @GetMapping("getStudentsNamesStartingWithLetterA")
+    public ResponseEntity<List<String>> getStudentsNamesStartingWithLetterA() {
+        return ResponseEntity.ok(studentService.studentsNameA());
+    }
+
+    @GetMapping("studentsNameStartWith")
+    public ResponseEntity<List<String>> studentsNameStartWith(String letter) {
+        return ResponseEntity.ok(studentService.studentsNameStartWith(letter));
+    }
+
+    @GetMapping("avgAgeOfStudentsByStream")
+    public ResponseEntity<Double> avgAgeOfStudents() {
+        return ResponseEntity.ok(studentService.avgAgeOfStudents());
+    }
 }
