@@ -124,5 +124,44 @@ public class StudentServiceImpl implements StudentService {
                 .orElse(0.0);
     }
 
+    public void printParallelStud() {
+        List<Student> students = studentRepository.findAll();
 
+        System.out.println(students.get(0).getName());
+        System.out.println(students.get(1).getName());
+
+        new Thread(() -> {
+            System.out.println(students.get(2).getName());
+            System.out.println(students.get(3).getName());
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(students.get(4).getName());
+            System.out.println(students.get(5).getName());
+        }).start();
+    }
+
+    public void printSynchronizedStud() {
+        List<String> names = studentRepository.findAll().stream()
+                .map(Student::getName)
+                .toList();
+
+        prinSynchName(names.get(0));
+        prinSynchName(names.get(1));
+
+        new Thread(() -> {
+            prinSynchName(names.get(2));
+            prinSynchName(names.get(3));
+        }).start();
+
+        new Thread(() -> {
+            prinSynchName(names.get(4));
+            prinSynchName(names.get(5));
+        }).start();
+
+    }
+
+    private synchronized void prinSynchName(String name) {
+        System.out.println(name);
+    }
 }
