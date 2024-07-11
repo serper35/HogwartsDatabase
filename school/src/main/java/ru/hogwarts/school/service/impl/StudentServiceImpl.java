@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
+import ru.hogwarts.school.service.FacultyService;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.*;
@@ -15,12 +16,15 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public StudentServiceImpl(StudentRepository studentRepository) {
+    private FacultyService facultyService;
+
+    public StudentServiceImpl(StudentRepository studentRepository, FacultyService facultyService) {
         this.studentRepository = studentRepository;
+        this.facultyService = facultyService;
     }
 
-
-    public Student addStudent(Student student) {
+    public Student addStudent(Student student, Long idFac) {
+        student.setFacultyId(facultyService.getFaculty(idFac));
         return studentRepository.save(student);
     }
 
