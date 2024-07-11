@@ -29,5 +29,11 @@ public interface StudentService {
     double  getAvgAgeOfStudents();
 
     List<Student> getLastFiveStudentsGroupById();
+
+    List<String> studentsNameA();
+
+    List<String> studentsNameStartWith(String letter);
+
+    Double avgAgeOfStudents();
 }
 

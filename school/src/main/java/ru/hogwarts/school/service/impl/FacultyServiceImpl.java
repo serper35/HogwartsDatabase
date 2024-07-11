@@ -11,6 +11,8 @@ import ru.hogwarts.school.service.FacultyService;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -66,5 +68,38 @@ public class FacultyServiceImpl implements FacultyService {
         return facultyRepository.findById(id)
                 .map(faculty -> faculty.getStudents())
                 .orElseThrow();
+    }
+
+    public String getLongestFacultyName() {
+        return facultyRepository.findAll().stream()
+                .max(Comparator.comparing(faculty -> faculty.getName().length()))
+                .map(faculty -> faculty.getName())
+                .orElse(null);
+    }
+
+    public String someMethod() {
+        //
+        long startTime = System.currentTimeMillis();
+//        int sum =   Stream.iterate(1, a -> a +1)
+////                .parallel()
+//                .limit(1_000_000).
+//                reduce(0, Integer::sum);
+        int sum = 0;
+        for (int i = 0; i < 1_000_000; i++) {
+            sum += i;
+        }
+
+//        int sum = IntStream.rangeClosed(1, 1_000_000)
+//                .parallel()
+//                .sum();
+        long endTime = System.currentTimeMillis();
+        long total = endTime - startTime;
+
+        return sum + " " + ", time: " + total;
+
+        // default time - 96ms;
+        // default  parallel time - 208ms;
+        // for time - 5ms.
+        // intStream time - 58ms.
     }
 }

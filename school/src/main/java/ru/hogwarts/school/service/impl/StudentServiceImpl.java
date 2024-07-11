@@ -96,5 +96,33 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.getLastFiveStudentsGroupById();
     }
 
+    public List<String> studentsNameA() {
+        logger.info("method studentsNameA was invoked");
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .filter(n -> n.toUpperCase().startsWith("A"))
+                .sorted(Comparator.naturalOrder())
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> studentsNameStartWith(String letter) {
+        logger.info("method studentsNameStartWith was invoked");
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .filter(n -> n.toUpperCase().startsWith(letter.toUpperCase()))
+                .sorted(Comparator.naturalOrder())
+                .map(String::toUpperCase)
+                .collect(Collectors.toList());
+    }
+
+    public Double avgAgeOfStudents() {
+        logger.info("method avgAgeOfStudents was invoked");
+        return studentRepository.findAll().stream()
+                .mapToDouble(student -> student.getAge())
+                .average()
+                .orElse(0.0);
+    }
+
 
 }
