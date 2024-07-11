@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("faculties")
+@RequestMapping("faculty")
 public class FacultyController {
     private FacultyService facultyService;
 
@@ -45,12 +45,9 @@ public class FacultyController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Faculty> remove(@PathVariable Long id) {
-        Faculty faculty = facultyService.removeFaculty(id);
-        if (faculty == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(faculty);
+    public ResponseEntity remove(@PathVariable Long id) {
+        facultyService.removeFaculty(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
