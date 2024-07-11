@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("faculty")
 public class FacultyController {
-    private FacultyService facultyService;
+    private final FacultyService facultyService;
 
     public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
@@ -71,7 +71,7 @@ public class FacultyController {
         return facultyService.getByNameIgnoreCaseOrColorIgnoreCase(name, color);
     }
 
-    @GetMapping("{id}/stusents")
+    @GetMapping("{id}/students")
     public Collection<Student> getStudentsByFaculty(@PathVariable Long id) {
         return facultyService.getStudentsByFaculty(id);
     }
